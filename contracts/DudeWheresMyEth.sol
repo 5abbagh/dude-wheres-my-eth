@@ -15,32 +15,32 @@ contract DudeWheresMyEth {
     uint internal contractTotalEth; 
 
     function addRule(address[] memory accounts) public payable {
-        require(msg.value > 0);
-        require(accounts.length >= 3 && accounts.length <= 7);
-        require(isUnique(msg.sender, accounts));
-        require(trusteesData[msg.sender].active == false && trusteesData[msg.sender].totalEth == 0);
+        require(msg.value > 0, "< zero eth value");
+        require(accounts.length >= 3 && accounts.length <= 7, "account count not in range: 7 >= count >=3");
+        require(isUnique(msg.sender, accounts), "accounts specified not unique");
+        require(trusteesData[msg.sender].active == false && trusteesData[msg.sender].totalEth == 0, "a rule already exists for this address");
         trusteesData[msg.sender] = Rule(accounts, true, msg.value, 0);
         contractTotalEth += msg.value;
     }
 
     function modifyRuleAccounts(address[] memory accounts) public {
-        require(trusteesData[msg.sender].active == true);
-        require(accounts.length >= 3 && accounts.length <= 7);
-        require(isUnique(msg.sender, accounts));
+        require(trusteesData[msg.sender].active == true, "rule not active");
+        require(accounts.length >= 3 && accounts.length <= 7, "account count not in range: 7 >= count >=3");
+        require(isUnique(msg.sender, accounts), "accounts specified not unique");
         trusteesData[msg.sender].accounts = accounts;
         resetVotes(msg.sender);
     }
 
     function addEthToRule() public payable {
-        require(msg.value > 0);
-        require(trusteesData[msg.sender].active == true);
+        require(msg.value > 0, "< zero eth value");
+        require(trusteesData[msg.sender].active == true, "rule not active");
         trusteesData[msg.sender].totalEth += msg.value;
         contractTotalEth += msg.value;
     }
 
     function requestEthBack(uint ethRequested) public {
-        require(ethRequested > 0);
-        require(trusteesData[msg.sender].active == true);
+        require(ethRequested > 0, "requested amount <= 0");
+        require(trusteesData[msg.sender].active == true, "rule not active");
         refundAmount(ethRequested);
     }
 
@@ -53,13 +53,13 @@ contract DudeWheresMyEth {
 
     function removeRule() public {
         trusteesData[msg.sender].active = false;
-        delete trusteesData[msg.sender].accounts;
         resetVotes(msg.sender);
+        delete trusteesData[msg.sender].accounts;
         refundAccount();
     }
 
     function voteToWithdraw(address ruleAddress) public {
-        require(trusteesData[ruleAddress].active == true);
+        require(trusteesData[ruleAddress].active == true, "rule not active");
 
         bool trusteeRegistered = false;
         for (uint index = 0; index < trusteesData[ruleAddress].accounts.length; index++) {
@@ -67,8 +67,8 @@ contract DudeWheresMyEth {
                 trusteeRegistered = true;
             }
         }
-        require(trusteeRegistered);
-        require(accountsVoted[ruleAddress][msg.sender] == false);
+        require(trusteeRegistered, "voter not registered");
+        require(accountsVoted[ruleAddress][msg.sender] == false, "voter already voted");
         trusteesData[ruleAddress].withdrawVotesCount += 1;
         accountsVoted[ruleAddress][msg.sender] = true;
 
@@ -80,7 +80,7 @@ contract DudeWheresMyEth {
     function isUnique(address sender, address[] memory accounts) internal returns(bool) {
         // TODO:: check for uniqueness of accounts
         for (uint i = 0; i < accounts.length; i++) {
-            require(sender != accounts[i]);
+            require(sender != accounts[i], "accounts not unique");
         }
         return true;
     }
@@ -99,7 +99,7 @@ contract DudeWheresMyEth {
     }
 
     function refundAmount(uint ethRequested) internal {
-        require(trusteesData[msg.sender].totalEth >= ethRequested);
+        require(trusteesData[msg.sender].totalEth >= ethRequested, "refund amount > balance");
         
         // subtract from totals;
         trusteesData[msg.sender].totalEth -= ethRequested;
@@ -116,8 +116,8 @@ contract DudeWheresMyEth {
 
             trusteesData[ruleAddress].totalEth = 0;
             trusteesData[ruleAddress].active = false;
-            delete trusteesData[ruleAddress].accounts;
             resetVotes(ruleAddress);
+            delete trusteesData[ruleAddress].accounts;
 
             receiver.transfer(amount);
         }
