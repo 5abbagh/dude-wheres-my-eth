@@ -1,0 +1,28 @@
+{
+  "name": "dude-wheres-my-eth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ali-Sabbagh/dude-wheres-my-eth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ali-Sabbagh/dude-wheres-my-eth/issues"
+  },
+  "homepage": "https://github.com/Ali-Sabbagh/dude-wheres-my-eth#readme",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "ganache-cli": "^6.12.2",
+    "truffle": "^5.3.5"
+  },
+  "dependencies": {
+    "abi-decoder": "^2.4.0"
+  }
+}
