@@ -2,27 +2,64 @@
   "name": "dude-wheres-my-eth",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ng": "ng",
+    "start": "concurrently \"npm run start:truffle\" \"npm run start:webapp\"",
+    "start:ganache": "npx ganache-cli -d",
+    "start:truffle": "npx truffle compile && npx truffle migrate --network dev && npx truffle exec --network dev src/smart-contract/scripts/index.js",
+    "start:webapp": "ng serve dwme-webapp",
+    "build": "npx truffle compile && ng build dwme-webapp",
+    "test": "ng test dwme-webapp && npx truffle test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ali-Sabbagh/dude-wheres-my-eth.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ali Sabbagh, Lucas Krausse",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Ali-Sabbagh/dude-wheres-my-eth/issues"
   },
   "homepage": "https://github.com/Ali-Sabbagh/dude-wheres-my-eth#readme",
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1102.12",
+    "@angular/cli": "~11.2.12",
+    "@angular/compiler-cli": "~11.2.13",
+    "@types/jasmine": "~3.6.0",
+    "@types/node": "^12.11.1",
     "chai": "^4.3.4",
+    "codelyzer": "^6.0.0",
+    "concurrently": "^6.2.0",
     "ganache-cli": "^6.12.2",
-    "truffle": "^5.3.5"
+    "jasmine-core": "~3.6.0",
+    "jasmine-spec-reporter": "~5.0.0",
+    "karma": "~6.1.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "^1.5.0",
+    "protractor": "~7.0.0",
+    "truffle": "^5.3.5",
+    "ts-node": "~8.3.0",
+    "tslint": "~6.1.0",
+    "typescript": "~4.1.5"
   },
   "dependencies": {
-    "abi-decoder": "^2.4.0"
+    "abi-decoder": "^2.4.0",
+    "@angular/animations": "~11.2.13",
+    "@angular/common": "~11.2.13",
+    "@angular/compiler": "~11.2.13",
+    "@angular/core": "~11.2.13",
+    "@angular/forms": "~11.2.13",
+    "@angular/platform-browser": "~11.2.13",
+    "@angular/platform-browser-dynamic": "~11.2.13",
+    "@angular/router": "~11.2.13",
+    "rxjs": "~6.6.0",
+    "tslib": "^2.0.0",
+    "zone.js": "~0.11.3"
   }
 }

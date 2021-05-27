@@ -25,6 +25,15 @@
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 module.exports = {
+
+  contracts_build_directory: "src/smart-contract/build/contracts",
+  contracts_directory: "src/smart-contract/contracts",
+  migrations_directory: "src/smart-contract/migrations",
+
+  authors: [
+    "Ali Sabbagh <ali96sab@gmail.com>",
+    "Lucas Krausse"
+  ],
   /**
    * Networks define how you connect to your ethereum client and let you set the
    * defaults web3 uses to send transactions. If you don't specify one truffle
