@@ -1,7 +1,21 @@
-.modification {
+:host {
+    padding: 20px
+}
+
+.modification:not(:last-of-type) {
     margin-bottom: 20px;
 }
 
 .form-btn {
     display: block;
+}
+
+.add-voter {
+    display: inline-block;
+    margin-left: 10px;
+    color: green;
+}
+
+.voter-field {
+    width: 65%;
 }

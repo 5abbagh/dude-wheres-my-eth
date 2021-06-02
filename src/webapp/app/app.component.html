@@ -5,10 +5,9 @@
 <div class="center">
     <mat-card>
         <mat-card-content>
-            <button color="primary" mat-raised-button (click)="connect()">Connect</button>
-            <mat-tab-group animationDuration="0ms" *ngIf="account$ | async">
+            <button color="primary" mat-raised-button (click)="connect()">{{btnText}}</button>
+            <mat-tab-group animationDuration="0ms" *ngIf="account">
                 <mat-tab label="Add rule">
-                    <h3>{{ account$ | async }}</h3>
                 </mat-tab>
                 <mat-tab label="Get rule">
                     <button color="primary" mat-raised-button (click)="getMyRule()">Get Rule</button>

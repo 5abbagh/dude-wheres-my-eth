@@ -13,16 +13,19 @@ import { MetamaskService } from './metamask.service';
 export class AppComponent implements OnInit, OnDestroy {
     title = 'Dude Wheres My Eth';
     subscriptions: Subscription;
-    account$: Observable<string | null>;
-
-    ruleAmount: number;
-    ruleAccounts: string[];
+    account: string;
+    btnText: string;
 
     constructor(private readonly metamaskService: MetamaskService, private readonly contractService: ContractService) {}
 
     ngOnInit(): void {
         this.subscriptions = new Subscription();
-        this.account$ = this.metamaskService.account$;
+        this.metamaskService.account$.pipe(
+            tap(account => {
+                this.account = account;
+                this.btnText = account ?? 'Connect';
+            })
+        ).subscribe();
     }
 
     connect() {
@@ -31,10 +34,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     getMyRule() {
         this.contractService.getRule();
-    }
-
-    requestEthBack() {
-        this.contractService.requestEthBack(2);
     }
 
     ngOnDestroy(): void {
