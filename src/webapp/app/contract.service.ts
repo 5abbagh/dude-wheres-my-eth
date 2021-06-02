@@ -60,9 +60,35 @@ export class ContractService {
 
     // addRule(account: string, ethAmount: number, ruleAccounts: string[]) {}
 
-    // modifyRuleAccounts(ownerAccount: string, ruleAccounts: string[]) {}
+    modifyRuleAccounts(ruleAccounts: string[]) {
+        if (this.contract && this.myAddress) {
+            from(
+                this.contract.methods
+                    .modifyRuleAccounts(ruleAccounts)
+                    .send({ from: this.myAddress })
+            )
+                .pipe(
+                    //take(1),
+                    tap((res) => console.log(res))
+                )
+                .subscribe();
+        }
+    }
 
-    // addEthToRule(account: string, ethAmount: number) {}
+    addEthToRule(ethAmount: number) {
+        if (this.contract && this.myAddress) {
+            from(
+                this.contract.methods
+                    .addEthToRule()
+                    .send({ from: this.myAddress, value: Web3.utils.toWei(new BN(ethAmount), 'ether') })
+            )
+                .pipe(
+                    //take(1),
+                    tap((res) => console.log(res))
+                )
+                .subscribe();
+        }
+    }
 
     // need to check for transaction signing.. and event listening to notify user
     requestEthBack(ethAmount: number) {

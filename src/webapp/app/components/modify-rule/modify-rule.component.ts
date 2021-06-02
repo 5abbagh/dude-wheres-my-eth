@@ -5,7 +5,7 @@ import { ContractService } from '../../contract.service';
 import { Rule } from '../../Models';
 import BN from 'bn.js';
 
-declare var web3: any;
+declare var Web3: any;
 @Component({
     selector: 'app-modify-rule',
     templateUrl: './modify-rule.component.html',
@@ -21,7 +21,7 @@ export class ModifyRuleComponent implements OnInit {
         this.contractService.getRule().pipe(
           tap(rule => {
               this.currentRule = rule;
-              //this.amountInEth = web3.utils.fromWei(new BN(rule.ethAmount), 'ether');
+              this.amountInEth = Web3.utils.fromWei(new BN(rule.ethAmount), 'ether');
             })
         ).subscribe();
     }
@@ -32,7 +32,7 @@ export class ModifyRuleComponent implements OnInit {
 
     requestEthBack() {}
 
-    addVoter() {
+    addVoterField() {
         if (this.currentRule.ruleAccounts.length < 8) {
             this.currentRule.ruleAccounts = Object.assign([], this.currentRule.ruleAccounts);
             this.currentRule.ruleAccounts.push('');

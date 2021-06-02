@@ -6,14 +6,14 @@
                     <mat-label>Voter {{i+1}}:</mat-label>
                     <input matInput placeholder="voter address" [(value)]="currentRule.ruleAccounts[i]">
                 </mat-form-field>
-                <mat-icon class="add-voter" *ngIf="i == l-1" aria-hidden="false" aria-label="Example home icon" (click)="addVoter()">add_circle_outline</mat-icon>
+                <mat-icon class="add-voter" *ngIf="i == l-1" (click)="addVoterField()">add_circle_outline</mat-icon>
             </div>
             <button class="form-btn" color="primary" mat-raised-button (click)="modifyAccounts()">
                 Modify Voters
             </button>
         </form>
     </div>
-    <h4>Current rule has {{amountInEth}} ether</h4>
+    <h4 class="amount-header">Current rule has <strong>{{amountInEth}}</strong> ether</h4>
     <div class="modification">
         <form class="modify-form">
             <mat-form-field class="add-eth-field">

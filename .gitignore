@@ -109,7 +109,6 @@ build/
 /dist
 /tmp
 /out-tsc
-src/**/*.js
 src/**/*.map
 
 # Only exists if Bazel was run
