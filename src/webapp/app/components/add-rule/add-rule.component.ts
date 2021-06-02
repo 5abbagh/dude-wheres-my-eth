@@ -28,6 +28,10 @@ export class AddRuleComponent implements OnInit {
             position: 2,
             address: '0xACa94ef8bD5ffEE41947b4585a84BdA5a3d3DA6E', // Ganach Account 8
         },
+        {
+            position: 3,
+            address: '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0', // Ganach Account 2
+        },
     ];
     displayedColumns: string[] = ['position', 'address'];
     dataSource: any;

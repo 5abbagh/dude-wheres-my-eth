@@ -60,7 +60,11 @@ export class ContractService {
     addRule(ethAmount: number, ruleAccounts: string[]) {
         console.log(ruleAccounts);
         if (this.contract) {
-            from(this.contract.methods.addRule(ruleAccounts).send({ from: this.myAddress }))
+            from(
+                this.contract.methods
+                    .addRule(ruleAccounts)
+                    .send({ from: this.myAddress, value: Web3.utils.toWei(new BN(ethAmount), 'ether') })
+            )
                 .pipe(tap((res) => console.log(res)))
                 .subscribe();
         }
