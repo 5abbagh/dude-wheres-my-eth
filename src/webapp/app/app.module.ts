@@ -10,6 +10,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { AddRuleComponent } from './components/add-rule/add-rule.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     declarations: [AppComponent, AddRuleComponent],
@@ -22,6 +26,11 @@ import { AddRuleComponent } from './components/add-rule/add-rule.component';
         MatTabsModule,
         MatCardModule,
         MatButtonModule,
+        MatInputModule,
+        MatTableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDividerModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

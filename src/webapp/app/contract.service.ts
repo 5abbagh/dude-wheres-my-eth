@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
 import { filter, take, tap } from 'rxjs/operators';
 import { MetamaskService } from './metamask.service';
-import { Rule } from './Models';
 import { abi } from '../../smart-contract/build/contracts/DudeWheresMyEth.json';
 import BN from 'bn.js';
 
@@ -52,7 +51,14 @@ export class ContractService {
         }
     }
 
-    // addRule(account: string, ethAmount: number, ruleAccounts: string[]) {}
+    addRule(ethAmount: number, ruleAccounts: string[]) {
+        console.log(ruleAccounts);
+        if (this.contract) {
+            from(this.contract.methods.addRule(ruleAccounts).send({ from: this.myAddress }))
+                .pipe(tap((res) => console.log(res)))
+                .subscribe();
+        }
+    }
 
     // modifyRuleAccounts(ownerAccount: string, ruleAccounts: string[]) {}
 
