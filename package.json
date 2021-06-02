@@ -7,7 +7,7 @@
     "ng": "ng",
     "start": "concurrently \"npm run start:truffle\" \"npm run start:webapp\"",
     "start:ganache": "npx ganache-cli -d",
-    "start:truffle": "npx truffle compile && npx truffle migrate --network dev && npx truffle exec --network dev src/smart-contract/scripts/index.js",
+    "start:truffle": "npx truffle migrate --network dev && npx truffle exec --network dev src/smart-contract/scripts/index.js",
     "start:webapp": "ng serve dwme-webapp",
     "build": "npx truffle compile && ng build dwme-webapp",
     "test": "ng test dwme-webapp && npx truffle test",

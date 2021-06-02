@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { from } from 'rxjs';
-import { filter, take, tap } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { MetamaskService } from './metamask.service';
 import { abi } from '../../smart-contract/build/contracts/DudeWheresMyEth.json';
 import BN from 'bn.js';
+import { Rule } from './Models';
 
 declare var Web3: any;
 
@@ -40,14 +41,19 @@ export class ContractService {
             .subscribe();
     }
 
-    getRule() {
+    getRule(): Observable<Rule> {
         if (this.contract) {
-            from(this.contract.methods.getRule().call())
-                .pipe(
-                    take(1),
-                    tap((res) => console.log(res))
-                )
-                .subscribe();
+            return from(this.contract.methods.getRule().call()).pipe(
+                take(1),
+                map((rule) => {
+                    return {
+                        owner: this.myAddress,
+                        ethAmount: rule['1'],
+                        ruleAccounts: rule['0'],
+                        votes: rule['2'],
+                    };
+                })
+            );
         }
     }
 
@@ -60,9 +66,31 @@ export class ContractService {
         }
     }
 
-    // modifyRuleAccounts(ownerAccount: string, ruleAccounts: string[]) {}
+    modifyRuleAccounts(ruleAccounts: string[]) {
+        if (this.contract && this.myAddress) {
+            from(this.contract.methods.modifyRuleAccounts(ruleAccounts).send({ from: this.myAddress }))
+                .pipe(
+                    //take(1),
+                    tap((res) => console.log(res))
+                )
+                .subscribe();
+        }
+    }
 
-    // addEthToRule(account: string, ethAmount: number) {}
+    addEthToRule(ethAmount: number) {
+        if (this.contract && this.myAddress) {
+            from(
+                this.contract.methods
+                    .addEthToRule()
+                    .send({ from: this.myAddress, value: Web3.utils.toWei(new BN(ethAmount), 'ether') })
+            )
+                .pipe(
+                    //take(1),
+                    tap((res) => console.log(res))
+                )
+                .subscribe();
+        }
+    }
 
     // need to check for transaction signing.. and event listening to notify user
     requestEthBack(ethAmount: number) {

@@ -1,0 +1,44 @@
+<ng-container *ngIf="currentRule; else notAble">
+    <div class="modification">
+        <form class="modify-form">
+            <div class="voter" *ngFor="let voter of currentRule.ruleAccounts; let i = index; let l = count">
+                <mat-form-field class="voter-field">
+                    <mat-label>Voter {{i+1}}:</mat-label>
+                    <input matInput placeholder="voter address" [(value)]="currentRule.ruleAccounts[i]">
+                </mat-form-field>
+                <mat-icon class="add-voter" *ngIf="i == l-1" (click)="addVoterField()">add_circle_outline</mat-icon>
+            </div>
+            <button class="form-btn" color="primary" mat-raised-button (click)="modifyAccounts()">
+                Modify Voters
+            </button>
+        </form>
+    </div>
+    <h4 class="amount-header">Current rule has <strong>{{amountInEth}}</strong> ether</h4>
+    <div class="modification">
+        <form class="modify-form">
+            <mat-form-field class="add-eth-field">
+                <mat-label>Add Ether to rule</mat-label>
+                <input type="number" matInput #addedAmount placeholder="amount to add">
+            </mat-form-field>
+            <button class="form-btn" color="primary" mat-raised-button (click)="addEth()">
+                Add eth
+            </button>
+        </form>
+
+    </div>
+    <div class="modification">
+        <form class="modify-form">
+            <mat-form-field class="get-eth-field">
+                <mat-label>Request Ether back</mat-label>
+                <input type="number" matInput #requestedAmount placeholder="amount to withdraw">
+            </mat-form-field>
+            <button class="form-btn" color="primary" mat-raised-button (click)="requestEthBack()">
+                Get Eth back
+            </button>
+        </form>
+    
+    </div>
+</ng-container>
+<ng-template #notAble>
+    <h3>We aren't able to retreive a rule</h3>
+</ng-template>
