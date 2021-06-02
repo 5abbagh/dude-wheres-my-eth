@@ -1,12 +1,25 @@
-Hello from Dude Wheres My Eth
+<mat-toolbar color="primary">
+    <span class="center text-center">Hello from {{ title }}</span>
+</mat-toolbar>
 
-<button (click)="connect()">Connect</button>
-<h3>{{(account$ | async)}}</h3>
-
-<button (click)="getMyRule()">Get Rule</button>
-<button (click)="requestEthBack()">Get 2 Eth back</button>
-
-<!-- <p>your rule amount is {{ruleAmount}}</p>
-
-<p *ngFor="let acc of ruleAccounts">{{acc}}</p>
-<router-outlet></router-outlet> -->
+<div class="center">
+    <mat-card>
+        <mat-card-content>
+            <button color="primary" mat-raised-button (click)="connect()">Connect</button>
+            <mat-tab-group animationDuration="0ms" *ngIf="account$ | async">
+                <mat-tab label="Add rule">
+                    <h3>{{ account$ | async }}</h3>
+                </mat-tab>
+                <mat-tab label="Get rule">
+                    <button color="primary" mat-raised-button (click)="getMyRule()">Get Rule</button>
+                </mat-tab>
+                <mat-tab label="Modify rule"
+                    ><button color="primary" mat-raised-button (click)="requestEthBack()">
+                        Get 2 Eth back
+                    </button></mat-tab
+                >
+                <mat-tab label="Vote for rule"></mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
+</div>

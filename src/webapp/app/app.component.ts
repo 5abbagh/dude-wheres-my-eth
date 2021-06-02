@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import detectEthereumProvider from '@metamask/detect-provider'
-import { from, Observable, of, Subscription} from 'rxjs';
+import detectEthereumProvider from '@metamask/detect-provider';
+import { from, Observable, of, Subscription } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { ContractService } from './contract.service';
 import { MetamaskService } from './metamask.service';
@@ -11,17 +11,14 @@ import { MetamaskService } from './metamask.service';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-    
     title = 'Dude Wheres My Eth';
     subscriptions: Subscription;
     account$: Observable<string | null>;
 
     ruleAmount: number;
     ruleAccounts: string[];
-    
-    constructor(private readonly metamaskService: MetamaskService, 
-                private readonly contractService:ContractService) {
-    }
+
+    constructor(private readonly metamaskService: MetamaskService, private readonly contractService: ContractService) {}
 
     ngOnInit(): void {
         this.subscriptions = new Subscription();
@@ -44,4 +41,3 @@ export class AppComponent implements OnInit, OnDestroy {
         this.subscriptions.unsubscribe();
     }
 }
-
