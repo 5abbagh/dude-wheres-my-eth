@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+.first {
+    width: 50%;
+}
+.second {
+    width: 50%;
+}

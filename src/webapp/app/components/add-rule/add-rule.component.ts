@@ -2,10 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ContractService } from '../../contract.service';
-export interface tableAccount {
-    position: number;
-    address: string;
-}
+import { TableAccount } from '../../Models';
 @Component({
     selector: 'app-add-rule',
     templateUrl: './add-rule.component.html',
@@ -19,7 +16,7 @@ export class AddRuleComponent implements OnInit {
         Validators.minLength(this.maxAmountOfChars),
         Validators.maxLength(this.maxAmountOfChars),
     ]);
-    table_accounts: tableAccount[] = [
+    table_accounts: TableAccount[] = [
         {
             position: 1,
             address: '0x1dF62f291b2E969fB0849d99D9Ce41e2F137006e', // Ganach Account9
@@ -40,7 +37,6 @@ export class AddRuleComponent implements OnInit {
 
     ngOnInit(): void {
         this.dataSource = this.table_accounts;
-        this.trusteesFormControl.value;
     }
 
     addTrustee() {

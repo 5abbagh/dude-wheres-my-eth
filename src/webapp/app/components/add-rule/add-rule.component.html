@@ -1,5 +1,5 @@
 <!-- Specifying amount of ether -->
-<div style="padding-top: 1rem">
+<div style="padding-top: 0.5rem">
     <form>
         <mat-form-field style="width: 100%">
             <mat-label>Amount of ether</mat-label>
@@ -15,7 +15,6 @@
         <mat-form-field style="width: 75%">
             <mat-label>Trustee address</mat-label>
             <input type="text" matInput [formControl]="trusteesFormControl" />
-
             <mat-hint>Trustee address has to be {{ maxAmountOfChars }} characters long</mat-hint>
         </mat-form-field>
         <button
@@ -30,7 +29,6 @@
     </form>
 </div>
 
-<!-- <mat-divider style="border-top-width: 2px; border-color: black"></mat-divider> -->
 <table mat-table [dataSource]="dataSource" style="width: 100%">
     <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->

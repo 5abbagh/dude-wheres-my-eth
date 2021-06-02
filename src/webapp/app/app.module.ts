@@ -15,9 +15,13 @@ import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { ModifyRuleComponent } from './components/modify-rule/modify-rule.component';
+import { GetRuleComponent } from './components/get-rule/get-rule.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { ToEtherPipe } from './pipes/to-ether.pipe';
+import { ToWeiPipe } from './pipes/to-wei.pipe';
 
 @NgModule({
-    declarations: [AppComponent, AddRuleComponent, ModifyRuleComponent],
+    declarations: [AppComponent, AddRuleComponent, ModifyRuleComponent, GetRuleComponent, ToEtherPipe, ToWeiPipe],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -33,8 +37,9 @@ import { ModifyRuleComponent } from './components/modify-rule/modify-rule.compon
         FormsModule,
         ReactiveFormsModule,
         MatDividerModule,
+        MatGridListModule,
     ],
-    providers: [],
+    providers: [ToEtherPipe, ToWeiPipe],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import detectEthereumProvider from '@metamask/detect-provider';
-import { from, Observable, of, Subscription } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { ContractService } from './contract.service';
 import { MetamaskService } from './metamask.service';
 
@@ -20,20 +20,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.subscriptions = new Subscription();
-        this.metamaskService.account$.pipe(
-            tap(account => {
-                this.account = account;
-                this.btnText = account ?? 'Connect';
-            })
-        ).subscribe();
+        this.metamaskService.account$
+            .pipe(
+                tap((account) => {
+                    this.account = account;
+                    this.btnText = account ?? 'Connect';
+                })
+            )
+            .subscribe();
     }
 
     connect() {
         this.metamaskService.connectToMetamask();
-    }
-
-    getMyRule() {
-        this.contractService.getRule();
     }
 
     ngOnDestroy(): void {

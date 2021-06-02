@@ -5,6 +5,8 @@ import { MetamaskService } from './metamask.service';
 import { abi } from '../../smart-contract/build/contracts/DudeWheresMyEth.json';
 import BN from 'bn.js';
 import { Rule } from './Models';
+import { ToEtherPipe } from './pipes/to-ether.pipe';
+import { ToWeiPipe } from './pipes/to-wei.pipe';
 
 declare var Web3: any;
 
@@ -18,7 +20,11 @@ export class ContractService {
     private contract: any;
     private myAddress: string;
 
-    constructor(private readonly metamaskService: MetamaskService) {
+    constructor(
+        private readonly metamaskService: MetamaskService,
+        private toEtherPipe: ToEtherPipe,
+        private toWeiPipe: ToWeiPipe
+    ) {
         this.metamaskService.web3$
             .pipe(
                 filter((val) => !!val),
@@ -63,7 +69,7 @@ export class ContractService {
             from(
                 this.contract.methods
                     .addRule(ruleAccounts)
-                    .send({ from: this.myAddress, value: Web3.utils.toWei(new BN(ethAmount), 'ether') })
+                    .send({ from: this.myAddress, value: this.toWeiPipe.transform(ethAmount) })
             )
                 .pipe(tap((res) => console.log(res)))
                 .subscribe();
@@ -86,7 +92,7 @@ export class ContractService {
             from(
                 this.contract.methods
                     .addEthToRule()
-                    .send({ from: this.myAddress, value: Web3.utils.toWei(new BN(ethAmount), 'ether') })
+                    .send({ from: this.myAddress, value: this.toWeiPipe.transform(ethAmount) })
             )
                 .pipe(
                     //take(1),
@@ -100,9 +106,7 @@ export class ContractService {
     requestEthBack(ethAmount: number) {
         if (this.contract && this.myAddress) {
             from(
-                this.contract.methods
-                    .requestEthBack(Web3.utils.toWei(new BN(ethAmount), 'ether'))
-                    .send({ from: this.myAddress })
+                this.contract.methods.requestEthBack(this.toWeiPipe.transform(ethAmount)).send({ from: this.myAddress })
             )
                 .pipe(
                     //take(1),
