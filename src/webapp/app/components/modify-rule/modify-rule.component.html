@@ -1,0 +1,39 @@
+<ng-container *ngIf="currentRule">
+    <div class="modification">
+        <form class="modify-form">
+            <mat-form-field class="voter-field" *ngFor="let voter of currentRule.ruleAccounts; let i = index">
+                <mat-label>Voter {{i}}:</mat-label>
+                <input matInput placeholder="voter address" value="voter">
+            </mat-form-field>
+            <button class="form-btn" color="primary" mat-raised-button (click)="modifyAccounts()">
+                Modify Voters
+            </button>
+        </form>
+    </div>
+    <div class="modification">
+        <form class="modify-form">
+            <mat-form-field class="add-eth-field">
+                <mat-label>Add Ether to rule</mat-label>
+                <!-- <span>Current rule has {{currentAmount}} ether</span> -->
+                <input matInput #addedAmount placeholder="amount to add">
+            </mat-form-field>
+            <button class="form-btn" color="primary" mat-raised-button (click)="addEth()">
+                Add eth
+            </button>
+        </form>
+
+    </div>
+    <div class="modification">
+        <form class="modify-form">
+            <mat-form-field class="get-eth-field">
+                <mat-label>Request Ether back</mat-label>
+                <input matInput #requestedAmount placeholder="amount to withdraw">
+            </mat-form-field>
+            <button class="form-btn" color="primary" mat-raised-button (click)="requestEthBack()">
+                Get Eth back
+            </button>
+        </form>
+    
+    </div>
+</ng-container>
+

@@ -13,11 +13,10 @@
                 <mat-tab label="Get rule">
                     <button color="primary" mat-raised-button (click)="getMyRule()">Get Rule</button>
                 </mat-tab>
-                <mat-tab label="Modify rule"
-                    ><button color="primary" mat-raised-button (click)="requestEthBack()">
-                        Get 2 Eth back
-                    </button></mat-tab
-                >
+                <mat-tab label="Modify rule">
+                    <app-modify-rule>
+                    </app-modify-rule>
+                </mat-tab>
                 <mat-tab label="Vote for rule"></mat-tab>
             </mat-tab-group>
         </mat-card-content>

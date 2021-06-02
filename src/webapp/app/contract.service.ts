@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { from } from 'rxjs';
-import { filter, take, tap } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { MetamaskService } from './metamask.service';
 import { Rule } from './Models';
 import { abi } from '../../smart-contract/build/contracts/DudeWheresMyEth.json';
@@ -41,14 +41,20 @@ export class ContractService {
             .subscribe();
     }
 
-    getRule() {
+    getRule() : Observable<Rule> {
         if (this.contract) {
-            from(this.contract.methods.getRule().call())
+            return from(this.contract.methods.getRule().call())
                 .pipe(
                     take(1),
-                    tap((res) => console.log(res))
-                )
-                .subscribe();
+                    map(rule => {
+                        return {
+                            owner: this.myAddress,
+                            ethAmount: rule['1'],
+                            ruleAccounts: rule['0'],
+                            votes: rule['2'],
+                        }
+                    })
+                );
         }
     }
 

@@ -9,10 +9,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { AddRuleComponent } from './components/add-rule/add-rule.component';
+import { ModifyRuleComponent } from './components/modify-rule/modify-rule.component';
 
 @NgModule({
-    declarations: [AppComponent, AddRuleComponent],
+    declarations: [AppComponent, AddRuleComponent, ModifyRuleComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -21,6 +23,7 @@ import { AddRuleComponent } from './components/add-rule/add-rule.component';
         MatIconModule,
         MatTabsModule,
         MatCardModule,
+        MatInputModule,
         MatButtonModule,
     ],
     providers: [],
