@@ -11,3 +11,13 @@
 .second {
     width: 50%;
 }
+
+.remove-rule {
+    margin-left: 10px;
+    color: red;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    display: inline-block;
+    cursor: pointer;
+}

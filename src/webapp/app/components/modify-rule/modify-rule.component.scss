@@ -14,12 +14,20 @@
     display: inline-block;
     margin-left: 10px;
     color: green;
+    cursor: pointer;
+}
+
+.remove-voter {
+    color: red;
+    display: inline-block;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 .voter-field {
     width: 65%;
 }
 
-.amount-header { 
-    margin-top: 35px;
-}
+// .amount-header { 
+//     margin-top: 35px;
+// }

@@ -47,7 +47,6 @@ export class MetamaskService {
             from(this.metamaskProvider.request({ method: 'eth_requestAccounts' })).pipe(
                 take(1),
                 map((accounts) => {
-                    console.log(accounts[0]);
                     return accounts[0];
                 }),
                 tap(acc => this.account.next(acc)),

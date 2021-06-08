@@ -19,15 +19,15 @@ export class AddRuleComponent implements OnInit {
     table_accounts: TableAccount[] = [
         {
             position: 1,
-            address: '0x1dF62f291b2E969fB0849d99D9Ce41e2F137006e', // Ganach Account9
+            address: '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0', // Ganach Account 1
         },
         {
             position: 2,
-            address: '0xACa94ef8bD5ffEE41947b4585a84BdA5a3d3DA6E', // Ganach Account 8
+            address: '0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b', // Ganach Account 2
         },
         {
             position: 3,
-            address: '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0', // Ganach Account 2
+            address: '0xE11BA2b4D45Eaed5996Cd0823791E0C93114882d', // Ganach Account 3
         },
     ];
     displayedColumns: string[] = ['position', 'address'];

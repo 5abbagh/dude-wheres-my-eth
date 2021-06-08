@@ -1,0 +1,18 @@
+<div>
+    <form>
+        <mat-form-field style="width: 100%">
+            <mat-label>Vote to withdraw ether of the rule at address:</mat-label>
+            <!-- <p>{{mockAddress}}</p> -->
+            <input type="text" matInput [formControl]="addressFormControl" [value]="mockAddress"/>
+            <!-- <mat-hint>Amount of ether to store</mat-hint> -->
+        </mat-form-field>
+        <button
+            color="primary"
+            [disabled]="this.addressFormControl.value.length !== maxAmountOfChars"
+            mat-raised-button
+            (click)="voteForRule()"
+        >
+            Vote to withdraw
+        </button>
+    </form>
+</div>

@@ -30,7 +30,6 @@ export class ContractService {
                 filter((val) => !!val),
                 take(1),
                 tap((web3) => {
-                    console.log(abi);
                     this.contract = new web3.eth.Contract(abi, this.contractAddress);
                 })
             )
@@ -49,9 +48,12 @@ export class ContractService {
 
     getRule(): Observable<Rule> {
         if (this.contract) {
-            return from(this.contract.methods.getRule().call()).pipe(
+            return from(this.contract.methods.getRule().call({from: this.myAddress})).pipe(
                 take(1),
                 map((rule) => {
+                    if (rule['0'].length == 0) {
+                        return null;
+                    }
                     return {
                         owner: this.myAddress,
                         ethAmount: rule['1'],
@@ -64,8 +66,8 @@ export class ContractService {
     }
 
     addRule(ethAmount: number, ruleAccounts: string[]) {
-        console.log(ruleAccounts);
         if (this.contract) {
+            this.getNonce();
             from(
                 this.contract.methods
                     .addRule(ruleAccounts)
@@ -76,19 +78,21 @@ export class ContractService {
         }
     }
 
-    modifyRuleAccounts(ruleAccounts: string[]) {
-        if (this.contract && this.myAddress) {
-            from(this.contract.methods.modifyRuleAccounts(ruleAccounts).send({ from: this.myAddress }))
-                .pipe(
-                    //take(1),
-                    tap((res) => console.log(res))
-                )
-                .subscribe();
-        }
-    }
+    // modifyRuleAccounts(ruleAccounts: string[]) {
+    //     if (this.contract && this.myAddress) {
+    //         this.getNonce();
+    //         from(this.contract.methods.modifyRuleAccounts(ruleAccounts).send({ from: this.myAddress }))
+    //             .pipe(
+    //                 //take(1),
+    //                 tap((res) => console.log(res))
+    //             )
+    //             .subscribe();
+    //     }
+    // }
 
     addEthToRule(ethAmount: number) {
         if (this.contract && this.myAddress) {
+            this.getNonce();
             from(
                 this.contract.methods
                     .addEthToRule()
@@ -105,6 +109,7 @@ export class ContractService {
     // need to check for transaction signing.. and event listening to notify user
     requestEthBack(ethAmount: number) {
         if (this.contract && this.myAddress) {
+            this.getNonce();
             from(
                 this.contract.methods.requestEthBack(this.toWeiPipe.transform(ethAmount)).send({ from: this.myAddress })
             )
@@ -116,7 +121,41 @@ export class ContractService {
         }
     }
 
-    // removeRule(account: string) {}
+    removeRule() {
+        if (this.contract && this.myAddress) {
+            this.getNonce();
+            from(
+                this.contract.methods.removeRule().send({ from: this.myAddress })
+            )
+                .pipe(
+                    //take(1),
+                    tap((res) => console.log(res))
+                )
+                .subscribe();
+        }
+    }
 
-    // voteToWithdraw(account: string, ruleOwnerAddress: string) {}
+    voteToWithdraw(ruleOwnerAddress: string) {
+        if (this.contract && this.myAddress) {
+            this.getNonce();
+            from(
+                this.contract.methods.voteToWithdraw(ruleOwnerAddress).send({ from: this.myAddress })
+            )
+                .pipe(
+                    //take(1),
+                    tap((res) => console.log(res))
+                )
+                .subscribe();
+        }
+    }
+
+    private getNonce() {
+        this.metamaskService.web3$.pipe(
+            filter((val) => !!val),
+            take(1),
+            map((web3) => {
+                console.log("Nonce: ", web3.eth.getTransactionCount(this.myAddress));
+            })
+        ).subscribe();
+    }
 }

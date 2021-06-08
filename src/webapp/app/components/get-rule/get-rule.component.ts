@@ -15,12 +15,13 @@ export class GetRuleComponent implements OnInit {
 
     constructor(private readonly contractService: ContractService) {}
 
-    currentRule: Rule = {
-        owner: '',
-        ethAmount: 0,
-        ruleAccounts: [],
-        votes: 0,
-    };
+    currentRule: Rule;
+    //  = {
+    //     owner: '',
+    //     ethAmount: 0,
+    //     ruleAccounts: [],
+    //     votes: 0,
+    // };
 
     ngOnInit(): void {
         this.dataSource = this.tableAccounts;
@@ -37,8 +38,12 @@ export class GetRuleComponent implements OnInit {
 
     // Converts the list of addresses to Table Accounts
     private convertToTableAccounts() {
-        this.currentRule.ruleAccounts.map((address) => {
+        this.currentRule?.ruleAccounts.map((address) => {
             this.tableAccounts.push({ position: this.tableAccounts.length + 1, address: address });
         });
+    }
+
+    removeRule() {
+        this.contractService.removeRule()
     }
 }

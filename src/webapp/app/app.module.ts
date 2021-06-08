@@ -19,9 +19,10 @@ import { GetRuleComponent } from './components/get-rule/get-rule.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ToEtherPipe } from './pipes/to-ether.pipe';
 import { ToWeiPipe } from './pipes/to-wei.pipe';
+import { VoteRuleComponent } from './components/vote-rule/vote-rule.component';
 
 @NgModule({
-    declarations: [AppComponent, AddRuleComponent, ModifyRuleComponent, GetRuleComponent, ToEtherPipe, ToWeiPipe],
+    declarations: [AppComponent, AddRuleComponent, ModifyRuleComponent, GetRuleComponent, ToEtherPipe, ToWeiPipe, VoteRuleComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

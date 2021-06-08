@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <span class="center text-center">Hello from {{ title }}</span>
+    <span class="center text-center">{{ title }}</span>
 </mat-toolbar>
 
 <div class="center">
@@ -16,7 +16,9 @@
                 <mat-tab label="Modify rule">
                     <app-modify-rule> </app-modify-rule>
                 </mat-tab>
-                <mat-tab label="Vote for rule"></mat-tab>
+                <mat-tab label="Vote for rule">
+                    <app-vote-rule></app-vote-rule>
+                </mat-tab>
             </mat-tab-group>
         </mat-card-content>
     </mat-card>
